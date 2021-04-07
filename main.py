@@ -1,4 +1,4 @@
-import nltk
+from Analyzer import *
 
 
 class SettingGenerator:
