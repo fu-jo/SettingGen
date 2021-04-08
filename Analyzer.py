@@ -1,6 +1,17 @@
+
 from nltk.corpus import wordnet as wn
 import nltk
 from textstat.textstat import textstatistics
+import textdistance
+
+
+def distance(text1, text2):
+    jaccardD = textdistance.jaccard.normalized_distance(text1, text2)
+    cosinD = textdistance.cosine.normalized_distance(text1, text2)
+    jaccardS = textdistance.jaccard.similarity(text1, text2)
+    cosinS = textdistance.cosine.similarity(text1, text2)
+    return [('jaccard distance', jaccardD), ('cosin distance', cosinD), ('jaccard similarity', jaccardS),
+            ('cosin similarity', cosinS)]
 
 
 def syllables_count(word):
