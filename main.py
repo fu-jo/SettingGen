@@ -1,5 +1,7 @@
+
 import nltk
 import Analyzer
+
 
 
 class SettingGenerator:
