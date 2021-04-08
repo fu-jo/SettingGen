@@ -2,11 +2,14 @@ import nltk
 
 
 class SettingGenerator:
-    def __init__(self, text: str):
-        self.text = text
+    def __init__(self):
+        self.text = []
 
-    def find_sensory_pairs(self) -> list:
-        tokens = nltk.word_tokenize(self.text)
+    def add_text(self, text: str):
+        self.text.append(text)
+
+    def find_sensory_pairs(self, num_text) -> list:
+        tokens = nltk.word_tokenize(self.text[num_text])
         tokens_tagged = nltk.pos_tag(tokens, tagset='universal')
         sensory_pairs = list()
         for i in range(len(tokens_tagged)):
