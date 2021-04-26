@@ -32,7 +32,7 @@ class LanguageModel:
     def add_text(self, text: str):
         self.texts.append(nltk.word_tokenize(text))
 
-    def update_text(self, num_texts: list = None, use_all: bool = False):
+    def update_text(self, num_texts: list = [], use_all: bool = False):
         if use_all:
             self.text = []
             for text in self.texts:
