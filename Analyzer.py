@@ -1,4 +1,3 @@
-
 from nltk.corpus import wordnet as wn
 import nltk
 from textstat.textstat import textstatistics
@@ -7,11 +6,11 @@ import textdistance
 
 def distance(text1, text2):
     jaccardD = textdistance.jaccard.normalized_distance(text1, text2)
-    cosinD = textdistance.cosine.normalized_distance(text1, text2)
+    cosineD = textdistance.cosine.normalized_distance(text1, text2)
     jaccardS = textdistance.jaccard.similarity(text1, text2)
-    cosinS = textdistance.cosine.similarity(text1, text2)
-    return [('jaccard distance', jaccardD), ('cosin distance', cosinD), ('jaccard similarity', jaccardS),
-            ('cosin similarity', cosinS)]
+    cosineS = textdistance.cosine.similarity(text1, text2)
+    return [('Jaccard Distance', jaccardD), ('Cosine Distance', cosineD), ('Jaccard Similarity', jaccardS),
+            ('Cosine Similarity', cosineS)]
 
 
 def syllables_count(word):
@@ -30,26 +29,30 @@ def difficult_words(text: str):
     tokens = nltk.word_tokenize(text)
     tagged = nltk.pos_tag(tokens, tagset='universal')
     words = [word for (word, tag) in tagged if tag != '.']
-
-    diff_words_set = set()
-
+    diff_words = set()
+    porter = nltk.PorterStemmer()
+    cmud = nltk.corpus.cmudict.dict()
     for word in words:
-        syllable_count = syllables_count(word)
-        if syllable_count > 2:
-            diff_words_set.add(word)
+        stem = porter.stem(word)
+        stem_freq = len([w for w in cmud.keys() if w.startswith(stem)])
+        if syllables_count(word) > 2 and stem_freq < 10:
+            diff_words.add(word)
+    return diff_words
 
-    return diff_words_set
 
-
-def replace_simple(word: str):
-    sylls = 3
+def replace_simple(word: str, tagged: list):
+    sylls = 30
     simpler = ''
     synonyms = list()
+    pos = [tag for (token, tag) in tagged if token == word][0]
     for syn in wn.synsets(word):
-        for l in syn.lemmas():
-            synonyms.append(l.name())
+        for lemma in syn.lemmas():
+            tag = nltk.pos_tag([lemma.name()])[0][1]
+            if tag == pos:
+                synonyms.append(lemma.name())
     for syn in synonyms:
         if syllables_count(syn) < sylls:
+            sylls = syllables_count(syn)
             simpler = syn
     return simpler
 
@@ -57,10 +60,11 @@ def replace_simple(word: str):
 def replace_sent(sentence: str):
     difficult = difficult_words(sentence)
     tokens = nltk.word_tokenize(sentence)
+    tagged = nltk.pos_tag(tokens)
     new_tokens = list()
     for token in tokens:
         if token in difficult:
-            new_token = replace_simple(token)
+            new_token = replace_simple(token, tagged)
             if new_token:
                 new_tokens.append(new_token)
             else:
