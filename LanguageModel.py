@@ -55,8 +55,8 @@ class LanguageModel:
         gener = starting_tokens
         while len(gener) < length:
             if self.n != 1:
-                gener += [char for char in self.sample(gener[-self.k:])[0]]
+                gener += [self.sample(gener[-self.k:])]
             else:
-                gener += [char for char in self.sample(gener[-self.k:])]
-        ret = sep.join(str(gener))
+                gener += [self.sample(gener[-self.k:])]
+        ret = sep.join(gener)
         return ret
