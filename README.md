@@ -19,7 +19,7 @@ add_sensory_pairs(sensory_pairs: list)
 adds a list of sensory pairs to the LanguageModel
 
 # Language Model
-the SettingGenerator object contains a LanguageModel object.
+The SettingGenerator object contains a LanguageModel object.
 It is initialized with a specified k and n for the n-gram generation based on previous k-grams, and an optional random seed.
 
 __init__(k: int, n: int, seed: int = 0)
