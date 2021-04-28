@@ -44,12 +44,12 @@ text_complexity(text: str)
 uses textstat functions to return the Flesch-Kincaid, Gunning-Fog, and SMOG indexes of the text.
 
 difficult_words(text: str) 
-Computes each word's stem rarity based on the CMU Pronouncing Dictionary as well as syllable count to identify difficult words in the text
+computes each word's stem rarity based on the CMU Pronouncing Dictionary as well as syllable count to identify difficult words in the text
 
 replace_simple(word: str, tagged: list)
-Replaces the word with a simpler word based on its synonyms in the CMU Pronouncing Dictionary
+replaces the word with a simpler word based on its synonyms in the CMU Pronouncing Dictionary
 
 replace_sent(sentence: str)
-Replaces all of the difficult words in a given string using "replace_simple"
+replaces all of the difficult words in a given string using "replace_simple"
 
 
