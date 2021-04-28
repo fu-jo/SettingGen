@@ -6,6 +6,9 @@ SettingGen consists of three files: SettingGenerator, LanguageModel, and Analyze
 
 SettingGenerator contains a LanguageModel object and a list of texts to sample from.
 
+__init__()
+initializes the SettingGenerator instance.
+
 add_text(text: str)
 takes in a string to add to the list of texts.
 
@@ -19,8 +22,11 @@ adds a list of sensory pairs to the LanguageModel
 the SettingGenerator object contains a LanguageModel object.
 It is initialized with a specified k and n for the n-gram generation based on previous k-grams, and an optional random seed.
 
+__init__(self, k: int, n: int, seed: int = 0)
+initializes the LanguageModel instance.
+
 update()
-Creates the conditional frequency distribution based on the currently added texts.
+creates the conditional frequency distribution based on the currently added texts.
 
 add_text(text: str)
 adds the text to the Language Model
@@ -40,6 +46,9 @@ Analyzes text distance and similarity using the textdistance library, as well as
 distance(text1: str, text2: str)
 uses textdistance jaccard and cosine functions to return the text distances and similarites in a convenient list.
 
+syllable_count(word: str)
+returns the number of syllables in the word computed using textstat.
+
 text_complexity(text: str)
 uses textstat functions to return the Flesch-Kincaid, Gunning-Fog, and SMOG indexes of the text.
 
@@ -51,5 +60,3 @@ replaces the word with a simpler word based on its synonyms in the CMU Pronounci
 
 replace_sent(sentence: str)
 replaces all of the difficult words in a given string using "replace_simple"
-
-
