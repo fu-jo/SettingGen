@@ -22,7 +22,7 @@ adds a list of sensory pairs to the LanguageModel
 the SettingGenerator object contains a LanguageModel object.
 It is initialized with a specified k and n for the n-gram generation based on previous k-grams, and an optional random seed.
 
-__init__(self, k: int, n: int, seed: int = 0)
+__init__(k: int, n: int, seed: int = 0)
 initializes the LanguageModel instance.
 
 update()
